@@ -1,0 +1,7 @@
+images/dotnet_bot;images/dotnet_bot
+images/imgback;images/imgback
+images/imgexplore;images/imgexplore
+images/imgfavorite;images/imgfavorite
+images/imgmenu;images/imgmenu
+images/imgsearch;images/imgsearch
+raw/aboutassets;raw/AboutAssets

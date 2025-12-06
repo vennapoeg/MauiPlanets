@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MauiPlanets.Converters"
+             x:Class="MauiPlanets.Views.PlanetDetailsPage"
+             Title="Planet Details">
+
+    <!-- Resources -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:UriToImageSourceConverter x:Key="UriToImageSourceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!-- Background -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#666" Offset="0.0"/>
+            <GradientStop Color="#000" Offset="1.0"/>
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid
+        Margin="24,52,24,0"
+        ColumnDefinitions="*,*"
+        RowDefinitions="Auto,*">
+
+        <!-- Top buttons -->
+        <ImageButton
+            WidthRequest="24"
+            HeightRequest="24"
+            Source="imgback.png"
+            Grid.Row="0"
+            Grid.Column="0"
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            Clicked="BackButton_Clicked"/>
+
+        <ImageButton
+            WidthRequest="24"
+            HeightRequest="24"
+            Source="imgmenu.png"
+            Grid.Row="0"
+            Grid.Column="1"
+            HorizontalOptions="End"
+            VerticalOptions="Center"/>
+
+        <!-- Scrollable content -->
+        <ScrollView
+            Grid.Row="1"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            HorizontalScrollBarVisibility="Never"
+            VerticalScrollBarVisibility="Never"
+            Margin="0,16,0,0">
+
+            <VerticalStackLayout Spacing="18">
+
+                <!-- Hero Image -->
+                <Image 
+                    Source="{Binding HeroImage}"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Fill"
+                    HeightRequest="240"
+                    Margin="24,0" />
+
+                <!-- Planet Name & Subtitle -->
+                <Label 
+                    Margin="0,-24,0,0"
+                    Style="{StaticResource AllPlanetHeaderSubtitleStyle}"
+                    Text="{Binding Name}"/>
+                <Label 
+                    Margin="0,-24,0,0"
+                    Style="{StaticResource PlanetHeaderSubtitleStyle}"
+                    Text="{Binding Subtitle}"/>
+
+                <!-- Divider -->
+                <Rectangle 
+                    HorizontalOptions="Fill"
+                    HeightRequest="2"
+                    Stroke="Transparent"
+                    Fill="{StaticResource LightBorderColor}"/>
+
+                <!-- Description -->
+                <Label 
+                    LineBreakMode="WordWrap"
+                    Style="{StaticResource PlanetDetailsTextStyle}"
+                    Text="{Binding Description}"/>
+
+                <!-- Gallery -->
+                <Label 
+                    Style="{StaticResource FeaturedPlanetHeaderSubtitleStyle}"
+                    Text="Gallery"/>
+
+                <!-- Horizontal Gallery -->
+                <CollectionView
+                    ItemsSource="{Binding Images}"
+                    HeightRequest="200"
+                    Margin="0,0,0,0"
+                    HorizontalScrollBarVisibility="Always">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="16"/>
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame CornerRadius="12" HasShadow="True" Padding="0">
+                                <Image
+                                    Source="{Binding ., Converter={StaticResource UriToImageSourceConverter}}"
+                                    Aspect="AspectFill"
+                                    HeightRequest="180"
+                                    WidthRequest="180"/>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
